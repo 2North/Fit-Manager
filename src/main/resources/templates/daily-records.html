@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- ... (шапка как раньше) ... -->
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+  <!-- ... (навбар как раньше) ... -->
+</nav>
+
+<div class="container">
+  <h1>Добавить приём пищи</h1>
+
+  <!-- Форма для выбора продуктов/блюд -->
+  <form th:action="@{/daily-records/add}" method="post">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Выбрать</th>
+        <th>Название</th>
+        <th>Белки (г)</th>
+        <th>Жиры (г)</th>
+        <th>Углеводы (г)</th>
+        <th>Ккал</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- Итерация по всем элементам -->
+      <tr th:each="item : ${nutritionItems}">
+        <td>
+          <input
+                  type="checkbox"
+                  name="selectedItems"
+                  th:value="${item.id}"
+          >
+        </td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${#numbers.formatDecimal(item.proteins, 1, 1)}"></td>
+        <td th:text="${#numbers.formatDecimal(item.fats, 1, 1)}"></td>
+        <td th:text="${#numbers.formatDecimal(item.carbs, 1, 1)}"></td>
+        <td th:text="${#numbers.formatDecimal(item.calories, 1, 1)}"></td>
+      </tr>
+      </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Добавить в приём пищи</button>
+  </form>
+</div>
+</body>
+</html>

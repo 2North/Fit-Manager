@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Food Manager</title>
+    <style>
+        table { border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        form { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+<h1>Добавить продукт</h1>
+
+<!-- Форма для создания продукта -->
+<form th:action="@{/foods}" method="post">
+    <div>
+        <label>Название:</label>
+        <input type="text" name="name" required>
+    </div>
+    <div>
+        <label>Белки (г):</label>
+        <input type="number" step="0.1" name="proteins" required>
+    </div>
+    <div>
+        <label>Жиры (г):</label>
+        <input type="number" step="0.1" name="fats" required>
+    </div>
+    <div>
+        <label>Углеводы (г):</label>
+        <input type="number" step="0.1" name="carbs" required>
+    </div>
+    <div>
+        <label>Калории (г):</label>
+        <input type="number" step="0.1" name="calories" required>
+    </div>
+    <button type="submit">Добавить</button>
+</form>
+
+<!-- Список продуктов -->
+<h2>Список продуктов</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Название</th>
+        <th>Белки</th>
+        <th>Жиры</th>
+        <th>Углеводы</th>
+        <th>Калории</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="food : ${foods}">
+        <td th:text="${food.name}"></td>
+        <td th:text="${food.proteins}"></td>
+        <td th:text="${food.fats}"></td>
+        <td th:text="${food.carbs}"></td>
+        <td th:text="${food.calories}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить запись</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">FitManager</a>
+        <a class="btn btn-light" th:href="@{/daily-records}">Назад к записям</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Добавить продукты/блюда</h1>
+
+    <form th:action="@{/daily-records/add}" method="post">
+        <table class="table table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th>Выбрать</th>
+                <th>Тип</th>
+                <th>Название</th>
+                <th>Белки (г)</th>
+                <th>Жиры (г)</th>
+                <th>Углеводы (г)</th>
+                <th>Ккал</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Используем итератор (можно и items) -->
+            <tr th:each="item : ${items}">
+                <td>
+                    <input
+                            type="checkbox"
+                            name="selectedItems"
+                            th:value="${item.id}"
+                    >
+                </td>
+                <td>
+                            <span th:text="${item.getClass().getSimpleName()}">
+                                <!-- Отображаем тип (Food или Meal) -->
+                            </span>
+                </td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${#numbers.formatDecimal(item.proteins, 1, 1)}"></td>
+                <td th:text="${#numbers.formatDecimal(item.fats, 1, 1)}"></td>
+                <td th:text="${#numbers.formatDecimal(item.carbs, 1, 1)}"></td>
+                <td th:text="${#numbers.formatDecimal(item.calories, 1, 1)}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="mb-3">
+            <label class="form-label">Дата:</label>
+            <input
+                    type="date"
+                    name="date"
+                    th:value="${#temporals.format(LocalDate.now(), 'yyyy-MM-dd')}"
+                    class="form-control"
+            >
+        </div>
+
+        <button type="submit" class="btn btn-success">Сохранить</button>
+    </form>
+</div>
+</body>
+</html>

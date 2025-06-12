@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Статистика питания</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .chart-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .chart-box {
+      background-color: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .chart-box h3 {
+      margin: 0 0 10px;
+      font-size: 1.2em;
+      color: #444;
+    }
+    canvas {
+      max-width: 100%;
+      height: 200px !important;
+    }
+    @media (max-width: 600px) {
+      .chart-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<h1>Статистика потребления макронутриентов и калорий</h1>
+
+<div class="chart-container">
+  <!-- График для белков -->
+  <div class="chart-box">
+    <h3>Белки (г)</h3>
+    <canvas id="proteinChart"></canvas>
+  </div>
+
+  <!-- График для жиров -->
+  <div class="chart-box">
+    <h3>Жиры (г)</h3>
+    <canvas id="fatChart"></canvas>
+  </div>
+
+  <!-- График для углеводов -->
+  <div class="chart-box">
+    <h3>Углеводы (г)</h3>
+    <canvas id="carbChart"></canvas>
+  </div>
+
+  <!-- График для калорий -->
+  <div class="chart-box">
+    <h3>Калории (ккал)</h3>
+    <canvas id="calorieChart"></canvas>
+  </div>
+</div>
+
+<script>
+  // График для белков
+  new Chart(document.getElementById('proteinChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Текущее', 'Норма'],
+      datasets: [{
+        label: 'Белки (г)',
+        data: [80, 100], // Затычка: 80 г текущее, 100 г норма
+        backgroundColor: ['#36a2eb', '#ff6384'],
+        borderColor: ['#36a2eb', '#ff6384'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 120,
+          title: { display: true, text: 'Граммы' }
+        }
+      },
+      plugins: {
+        legend: { display: false }
+      }
+    }
+  });
+
+  // График для жиров
+  new Chart(document.getElementById('fatChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Текущее', 'Норма'],
+      datasets: [{
+        label: 'Жиры (г)',
+        data: [50, 70], // Затычка: 50 г текущее, 70 г норма
+        backgroundColor: ['#ffce56', '#ff6384'],
+        borderColor: ['#ffce56', '#ff6384'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100,
+          title: { display: true, text: 'Граммы' }
+        }
+      },
+      plugins: {
+        legend: { display: false }
+      }
+    }
+  });
+
+  // График для углеводов
+  new Chart(document.getElementById('carbChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Текущее', 'Норма'],
+      datasets: [{
+        label: 'Углеводы (г)',
+        data: [200, 250], // Затычка: 200 г текущее, 250 г норма
+        backgroundColor: ['#4bc0c0', '#ff6384'],
+        borderColor: ['#4bc0c0', '#ff6384'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 300,
+          title: { display: true, text: 'Граммы' }
+        }
+      },
+      plugins: {
+        legend: { display: false }
+      }
+    }
+  });
+
+  // График для калорий
+  new Chart(document.getElementById('calorieChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Текущее', 'Норма'],
+      datasets: [{
+        label: 'Калории (ккал)',
+        data: [1800, 2200], // Затычка: 1800 ккал текущее, 2200 ккал норма
+        backgroundColor: ['#9966ff', '#ff6384'],
+        borderColor: ['#9966ff', '#ff6384'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 2500,
+          title: { display: true, text: 'Ккал' }
+        }
+      },
+      plugins: {
+        legend: { display: false }
+      }
+    }
+  });
+</script>
+</body>
+</html>
